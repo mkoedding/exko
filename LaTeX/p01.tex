@@ -1,0 +1,83 @@
+\documentclass[a4paper, 12pt]{article}
+
+
+\usepackage{amsmath, amsthm, amsfonts}
+\usepackage[margin=2cm]{geometry}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{\medskipamount}
+%\usepackage{bera}
+%\usepackage{euler}
+\usepackage{hyperref}
+\usepackage[ngerman]{babel}
+\usepackage{xcolor}
+\definecolor{pinegreen}{cmyk}{0.92,0,0.59,0.25} % PineGreen
+\definecolor{craneorange}{RGB}{252,187,6}
+\usepackage{tikz, tikz-timing}
+\usetikztiminglibrary{clockarrows}
+\usetikzlibrary[arrows,shadows.blur,matrix,calc,decorations.footprints]
+\tikzstyle{to}=[->, >=stealth]
+\usepackage{comment}
+\usepackage{minted}
+
+
+\renewcommand{\date}{22.04.2025}
+\newcommand{\klasse}{MAT 06}
+\newcommand{\institute}{PH Heidelberg}
+\newcommand{\topic}{Grundlagen zu \LaTeX}
+\newcommand{\semester}{SoSe 2025}
+
+\newcommand{\blatt}{01}
+
+\newcounter{Aufgabe}
+\newenvironment{aufgabe}{\addtocounter{Aufgabe}{1}%%
+	\textbf{Aufgabe \theAufgabe}
+	
+	\vspace*{-0.3em}}{\medskip}
+
+\newcommand{\loes}[1]{
+	%\textcolor{blue}{#1}
+}
+
+\begin{document}
+	\pagestyle{empty}
+	\begin{minipage}{0.2\textwidth}
+		Marvin Ködding\\\scriptsize \klasse\\\institute
+	\end{minipage}
+	\begin{minipage}{.6\textwidth}
+		\centering
+		-- Präsenzblatt \blatt{} --\\\textbf{\topic}
+	\end{minipage}
+	\begin{minipage}{.2\textwidth}
+		\flushright \semester\\\scriptsize \date
+	\end{minipage}
+	
+	\vspace*{1cm}
+	
+	\begin{aufgabe}
+		Legt eine \LaTeX-Datei an. Erzeugt ein Dokument mit Titel, Autor, mehreren Abschnitten, etwas Text und einer Fußnote.
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Setzt die folgende Tabelle:
+		
+		\begin{center}
+			\begin{tabular}{|l||c|r|}
+				\hline
+				\textsc{Nummer} & \textsc{Text} & \textit{Buchstabe}\\
+				\hline
+				\textbf{1} & links & x\\
+				\textbf{2} & gerade & y\\
+				\textbf{3} & mitte & z\\
+				\hline
+			\end{tabular}
+		\end{center}
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Erstellt eine (un-)nummerierte Liste mit 3 Punkten. Baut nun unter dem 2. Punkt eine weitere (un-)nummerierte Liste ein und untersucht das Verhältnis von \glqq{}Oberliste\grqq{} und \glqq{}Unterliste\grqq{}.
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Nun wollen wir Zitate in euren Text einbinden. Dafür erstellen wir zunächst eine \verb*|literature.bib|-Datei. Danach erzeugen wir einen Literatureintrag\footnote{Entweder schreibt ihr diesen händisch oder (was ich empfehlen würde) ihr verwendet Zotero oder Citavi und exportiert eure Literaturliste.}. Nun könnt ihr auf diesen Literatureintrag mit \verb*|\cite| verweisen.
+	\end{aufgabe}
+\end{document}

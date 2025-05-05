@@ -1,0 +1,52 @@
+\documentclass[a4paper, 12pt]{mksheetphhd}
+
+\title{Grundlagen von \LaTeX\\\small Handwerkzeug}
+\author{Marvin Ködding}
+%\usepackage{minted}
+\usepackage{multicol}
+
+\everymath{\displaystyle}
+
+\begin{document}
+	\printtitle
+	
+	\vspace*{.5cm}
+	
+	\begin{aufgabe}
+		Setzt die folgenden Ausdrücke:
+		\begin{enumerate}
+			\begin{multicols}3
+				\item $\alpha \leq \beta$
+				\item $A \subseteq B$
+				\item $x_1^2 + x_2^2 = r^2$
+				\item $x + \sqrt{2}$
+				
+				
+				\item $\mathbb{N} \subset \mathbb{Z} \subset \mathbb{Q} \subset \mathbb{R} \subset \mathbb{C}$
+				
+				\item $\lim_{n \to \infty}\frac{1}{n^2}$
+				
+				\item $\sin^2x+\cos^2x = 1$
+				
+				\item $\sum_{i = 1}^{n} i^2 = \frac{n(n+1)(n+2)}{6}$
+				
+				\item 
+				
+			\end{multicols}
+		\end{enumerate}
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Bestimmt die Lösungen der Gleichung $3x^2+6x=12$ schriftlich. Stelle deine Umformungen mit \LaTeX{} dar. Setze die Gleichheitszeichen untereinander. (Hinweis: \verb+align*+)
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Setzt den folgenden Text:
+		
+		Die Menge der ganzen Zahlen ist $\mathbb{Z} = \mathbb{N} \cup \{0\} \cup \{-n \mid n \in \mathbb{N}\}$. 
+		
+		(Hinweis: Mengenklammern setzt man mit \verb|\{ \}|, die Mengen $\mathbb{Z}$ und $\mathbb{N}$ setzt man mit \verb|\mathbb{Z}| bzw. \verb|\mathbb{N}|.)
+	\end{aufgabe}
+	
+	
+\end{document}

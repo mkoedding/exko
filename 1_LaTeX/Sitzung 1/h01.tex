@@ -1,0 +1,76 @@
+\documentclass[a4paper, 12pt]{article}
+
+\usepackage[margin=2cm]{geometry}
+\setlength{\parindent}{0em}
+\setlength{\parskip}{\smallskipamount}
+\usepackage[ngerman]{babel}
+\usepackage{minted}
+
+
+\begin{document}
+	\pagestyle{empty}
+	\begin{minipage}{0.2\textwidth}
+		Marvin Ködding\\\scriptsize MAT 06\\PH Heidelberg
+	\end{minipage}
+	\begin{minipage}{.6\textwidth}
+		\centering
+		-- Vorbereitungsblatt 01 --\\\textbf{Grundlagen zu \LaTeX}
+	\end{minipage}
+	\begin{minipage}{.2\textwidth}
+		\flushright SoSe 2025\\\scriptsize 22.04.2025
+	\end{minipage}
+	
+	\vspace*{1cm}
+	
+	\textbf{Aufgabe 1}
+	
+	Legt eine \LaTeX-Datei an. Erzeugt ein Dokument und bearbeitet die folgenden Aufgaben.
+	
+	\vspace*{0.4cm}
+	
+	\textbf{Aufgabe 2}
+	
+		Setzt den folgenden Text:
+		
+		\begin{center}
+			Mathematik digital kompetent\\
+			\tiny Marvin Ködding \qquad PH Heidelberg
+		\end{center}
+		
+		\textbf{Zusammenfassung.} Wir werden uns im folgenden Semester mit den Themen
+		\begin{itemize}
+			\item \LaTeX,
+			\item \textsc{Python} und
+			\item \glqq{}Manim\grqq{}
+		\end{itemize}
+		beschäftigen. Dabei legen wir einen besonderen Fokus auf die \textbf{mathematische} Exploration mit \textsc{Computern}.
+		
+	\vspace*{0.4cm}
+	
+	\textbf{Aufgabe 3}
+	
+		Setzt die folgende Tabelle:
+		
+		\begin{center}
+			\begin{tabular}{c|l}
+				Text 1 & Nummer 1\\
+				\hline
+				2 & 2\\
+				\hline
+				3 & 3
+			\end{tabular}
+		\end{center}
+		
+	\vspace*{0.4cm}
+
+	\textbf{Aufgabe 4}
+	
+		Setzt den folgenden Text mit Python-Syntaxhighlighting:
+		
+		\begin{minted}{python}
+	b = 10
+	if b > 20:
+	  print("b > 20")
+	print("b =", b)
+		\end{minted}
+\end{document}

@@ -1,0 +1,66 @@
+\documentclass[a4paper, 12pt]{mksheetphhd}
+
+\title{Vorbereitung fürs Handwerkszeug}
+\author{Marvin Ködding}
+%\usepackage{minted}
+\usepackage{multicol}
+
+\everymath{\displaystyle}
+
+\begin{document}
+	\printtitle
+	
+	\vspace*{1cm}
+	
+	\begin{comment}
+		Setze den folgenden Text: 
+		
+		Mithilfe der \textbf{Mitternachtsformel} können wir die Lösungen der Gleichung $ax^2+bx+c=0$ bestimmen. Diese sind
+		\[x_{1,2}=\frac{-b\pm\sqrt{b^2-4ac}}{2a}.\]
+		
+		
+		Formuliere einen ähnlichen Text für die $pq$-Formel.
+	\end{comment}
+	
+
+	
+	\begin{aufgabe}
+		Setze:
+		\begin{enumerate}
+			\begin{multicols}2
+				\item $x\lor (y \land z) = (x \land y) \lor (x \land z)$
+				\item $\left(x\cdot \left(b+c\right)\right)\left(\left(a\cdot b\right)+\frac{c}{x}\right)$ für $x\neq 0$
+			\end{multicols}
+		\end{enumerate}
+		(Hinweis: \verb|\lor| erzeugt $\lor$ und steht für \textbf{l}ogical \textbf{or}. \verb|\land| erzeugt $\land$ und steht für \dots)
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Setzt die folgenden Ausdrücke:
+		\begin{enumerate}
+			\begin{multicols}2
+				\item $x_1^2 + x_2^2 = r^2$
+				
+				\item $\int\limits_0^\pi \sin(x)\; \mathrm{d}x$
+				\item $\lim_{x \to \infty} \frac{\ln x}{x} = 0$
+				\item $C_{\alpha}=\int\limits_0^{\alpha} \Gamma(x) \mathrm{d}x$
+			\end{multicols}
+		\end{enumerate}
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Schreibt einen Befehl \verb|\intdx{untere Grenze}{obere Grenze}{Funktion}|, die ein Integralsymbol mit den angegebenen Grenzen und Funktion erstellt. Hier soll automatisch das $\mathrm{d}x$ korrekt gesetzt werden.
+		
+		So soll \verb|\intdx{0}{2}{4\cdot f(x)}| die Ausgabe \[\int_{0}^{2} 4\cdot f(x) \mathrm{d}x\] erzeugen.
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Schreibt einen Befehl, der eine $3 \times 3$-Diagonalmatrix erstellt. So soll \verb|\diagm{1}{2}{3}| die Matrix \[\begin{pmatrix}
+			1 & 0 & 0 \\ 0 & 2 & 0 \\ 0 & 0 & 3
+		\end{pmatrix}\] erzeugen.
+	\end{aufgabe}
+	\newpage
+	\printlicense
+	
+	\printsocials
+\end{document}

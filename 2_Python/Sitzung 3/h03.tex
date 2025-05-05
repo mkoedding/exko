@@ -1,0 +1,61 @@
+\documentclass[a4paper, 12pt]{mksheetphhd}
+
+\title{Vorbereitung fürs Handwerkszeug}
+\author{Marvin Ködding}
+\usepackage{minted}
+\usepackage{multicol}
+
+\everymath{\displaystyle}
+
+\begin{document}
+	\printtitle
+	
+	\vspace*{1cm}
+	
+	\begin{aufgabe}
+		Experimentiert mit einfachen arithmetischen Ausdrücken. Weist Variablen mit den Namen $a$, $b$ und $c$ Werte zu und berechnet z.B. $a + bc$, $a - b/c$ oder $a(b + c)$. Hält sich Python an die Regel \glqq{}Punktrechnung vor Strichrechnung\grqq{}? Funktioniert die Klammerung von Termen so, wie ihr das erwarten würdet?
+	\end{aufgabe}
+
+	
+	\begin{aufgabe}
+		Probiert den folgenden Block aus:
+		
+		\begin{minted}{python}
+a = 100
+a += 10
+a
+		\end{minted}
+		
+		Was liefert Python zurück? Stellt Vermutungen auf, was die Anweisung \verb*|+=| bewirkt. Was bewirken die Anweisungen \verb*|-=|, \verb*|*=| und \verb*|/=|?
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Berechnet die Summe $1 + 2 + 3 + \dots + 100$.
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Berechnet die Summe der ersten $100$ ungeraden Zahlen.
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Berechnet die Summe der Zahlen $1^2 + 2^2 + 3^2 + \dots + 49^2$.
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Gebt die Summe der ersten 50 natürlichen Zahlen an, die großer als 200 sind.
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Modifiziert die Funktion \mintinline{python}|sumFn| so, dass auch für negative Argumente sinnvolle Werte zurückgegeben werden. So sollte \mintinline{python}|sumFn(-4)| den Wert $-1-2-3-4$ zurückliefern. Für positive Arguemnte soll die Funktion wie bisher funktionieren. Löst die Aufgabe auf zwei verschiedene Arten.
+	\end{aufgabe}
+	\newpage
+	
+	\begin{aufgabe}
+		Schreibt eine Funktion \mintinline{python}|fact|, die zu einer Eingabe $n$ die jeweilige Fakultät $$n! = 1 \cdot 2 \cdot \dots \cdot (n-1) \cdot n$$ zurückgibt. Versucht auch hier mehrere Lösungswege zu finden.
+	\end{aufgabe}
+	
+	\printlicense
+	
+	\printsocials
+	
+\end{document}

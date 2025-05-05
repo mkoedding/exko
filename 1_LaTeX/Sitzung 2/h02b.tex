@@ -1,0 +1,47 @@
+\documentclass[a4paper, 12pt]{mksheetphhd}
+
+\title{Grundlagen von \LaTeX\\\small Matrizen und Darstellung}
+\author{Marvin Ködding}
+%\usepackage{minted}
+\usepackage{multicol}
+
+\everymath{\displaystyle}
+
+\begin{document}
+	\printtitle
+	
+	\vspace*{.5cm}
+	
+	\begin{aufgabe}
+		Setzt die folgenden Ausdrücke:
+		\begin{enumerate}
+			\begin{multicols}3
+				\item $\alpha \leq \beta$
+				\item $A \subseteq B$
+				\item $x_1 + x_2 = z$
+				\item $x + \sqrt{2}$
+				\item $A = \begin{pmatrix}
+					1 & 0 \\ 0 & 1
+				\end{pmatrix}$
+				\item $\mathcal{Z} = \begin{Vmatrix}
+					\alpha & 0 & 0\\ 1 & \beta & 0 \\ 0 & 1 & \gamma
+				\end{Vmatrix}$
+				\item $\mathcal{Z} = \begin{bmatrix}
+					1 & 0 & 1\\ 0 & 1 & 0 \\ 1 & 0 & 1
+				\end{bmatrix}$
+			\end{multicols}
+		\end{enumerate}
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Macht euch den Unterschied zwischen \verb+\int_a^b+ und \verb+\int\limits_a^b+ klar.
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Setzt den folgenden Text:
+		
+		Den \textbf{Satz des Pythagoras} können wir in einem \textit{rechtwinkligen} Dreieck mit den Kathetenlängen $a$ und $b$ und der Hypothenusenlänge $c$ anwenden. Dann gilt \[a^2+b^2=c^2.\]
+	\end{aufgabe}
+	
+	
+\end{document}

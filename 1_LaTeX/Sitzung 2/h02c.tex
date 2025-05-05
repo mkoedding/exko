@@ -1,0 +1,41 @@
+\documentclass[a4paper, 12pt]{mksheetphhd}
+
+\title{Grundlagen von \LaTeX\\\small Eigene Befehle}
+\author{Marvin Ködding}
+%\usepackage{minted}
+\usepackage{multicol}
+
+\everymath{\displaystyle}
+
+\begin{document}
+	\printtitle
+	
+	\vspace*{.5cm}
+	
+	\begin{aufgabe}
+		Setzt die folgenden Ausdrücke:
+		\begin{enumerate}
+			\begin{multicols}3
+				\item $\alpha \leq \beta$
+				\item $A \subseteq B$
+				\item $x_1 + x_2 = z$
+				\item $x + \sqrt{2}$
+				\item $
+				\underbrace{1 + 1}_{=\;2} \leq \underbrace{1 + 2 + 3}_{=\;6}
+				$
+			\end{multicols}
+				\item $f(x_1, x_2, x_3) = x_1\overline{x_2}x_3 \oplus \overline{x_1}\overline{x_2}x_3$
+			
+		\end{enumerate}
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Erstellt einen Befehl \verb|setpage{n}|, mit dem man die Seitenzahl auf $n$ setzen kann.
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Erstellt eine Umgebung \verb|aufgabe|, die eine Überschrift \textbf{Aufgabe $\mathbf{x}$} setzt, gefolgt von einem kleinen Abstand. Hierauf soll der Aufgabentext folgen. Nach der Umgebung soll ein größerer Abstand zur folgenden Aufgabe gesetzt werden. Ihr könnt euch an diesem Aufgabenblatt (oder an Vorbereitungsblatt 01) orientieren.
+	\end{aufgabe}
+	
+	
+\end{document}

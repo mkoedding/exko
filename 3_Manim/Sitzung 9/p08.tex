@@ -1,0 +1,140 @@
+\documentclass[a4paper, 12pt]{mksheetphhd}
+
+\title{Updater}
+\author{Marvin Ködding}
+\usepackage{minted}
+\usepackage{multicol}
+
+\everymath{\displaystyle}
+
+\begin{document}
+	\printtitle
+	
+	\vspace*{.5cm}
+	
+	Dieses Arbeitsblatt wird etwas geleitet gestaltet inkl. einiger kleiner Übungen
+	
+	Zunächst zeichnen wir eine Zahlenebene und eine abschnittweise definierte Funktion ein. Dabei betrachten wir die Funktion $f$ mit \[f(x) = \begin{cases}
+	1/2\, x & \text{ für } x \leq 2\\
+	-x + 2 & \text{ für } x > 2.
+	\end{cases}\]
+	\begin{minted}[bgcolor=gray!10]{python}
+ax = Axes(x_range=[-5, 5], y_range=[-3, 3])
+graph1 = ax.plot(lambda x: 0.5*x, color=BLUE, x_range=[-5, 2])
+graph2 = ax.plot(lambda x: -1*x+2, color=BLUE, x_range=[2, 5])
+
+self.play(Create(ax))
+self.play(Create(graph1))
+self.play(Create(graph2))
+	\end{minted}
+	
+	Nun wollen wir einen Punkt im Ursprung einzeichnen lassen.
+	
+	\begin{minted}[bgcolor=gray!10]{python}
+dot = Dot(ax.c2p(0,0))
+	\end{minted}
+	
+	Mit \verb*|ax.c2p(x,y)| können wir zu $x$ und $y$ Koordinaten eines Punktes die Positionen auf der Manim Ebene erhalten.
+	
+	Es wäre doch schön, wenn wir den Punkt über die Sprungstelle laufen lassen könnten, um zu visualisieren, dass da tatsächlich ein Sprung passiert. \textit{Wir wackeln etwas an $x$ und damit wackelt es etwas sehr an $y$.}
+	
+	\begin{aufgabe}
+		Wir könnten überlegen, ob wir \verb*|MoveAlongPath| verwenden. Probiert das doch kurz selbst aus.
+	\end{aufgabe}
+	
+	Wir sehen aber, dass wir das \glqq{}Hin- und Herwackeln\grqq{} nicht so schön umsetzen können. Wir brauchen also eine andere Lösung.
+	
+	Zunächst erstellen wir eine Funktion, die unserer o.g. Funktion $f$ entspricht:
+	
+	\begin{minted}[bgcolor=gray!10]{python}
+def func(x):
+  if int(x) < 2:
+    return 0.5*x
+  else:
+    return -1*x+2
+	\end{minted}
+	
+	Nun kommen wir zu einem Konzept, was wir bisher noch nicht besprochen haben. Dabei handelt es sich um Updater. Das sind Funktionen, die wir einem Mobject \glqq{}anheften\grqq{} können und die jeden Frame ausgeführt wird. Wir wollen den Punkt \verb*|dot| zu jedem Frame auf den Punkt $(x, \mathtt{func}(x))$ bewegen.
+	
+\begin{minted}[bgcolor=gray!10]{python}
+def update_function(mobj):
+  mobj.move_to(ax.c2p(...))
+\end{minted}
+
+	Aber welche Werte tragen wir dort ein? Wir haben in Manim ValueTracker, die dafür ausgelegt sind, einen Wert zu speichern, den man im Nachhinein dynamisch ändern kann. ValueTracker haben den Vorteil, dass sie nicht wie Variablen den Wert direkt beim setzen bspw. von $0$ auf $1$ ändern, sondern dynamisch über eine \verb*|run_time| hinweg.
+	
+	Das ermöglicht es uns, die $x$-Komponente zu variieren.
+	
+\begin{minted}[bgcolor=gray!10]{python}
+t = ValueTracker(0)
+	
+def update_function(mobj):
+  mobj.move_to(ax.c2p(t.get_value(), func(t.get_value())))
+\end{minted}
+
+	Und damit sind wir fast fertig. Nun müssen wir unserem \verb*|dot| noch sagen, dass er nun einen Updater hat, den er regelmäßig ausführen soll.
+	Das machen wir mit
+	
+\begin{minted}[bgcolor=gray!10]{python}
+dot.add_updater(update_function)
+\end{minted}
+
+	Und nun können wir mit \verb|self.play(t.animate.set_value(4))| den Wert von \verb*|t| auf $4$ setzen. Mit \verb*|run_time=5| können wir die Animation noch verlangsamen. Nun lassen wir den Punkt um die Sprungstelle wandern:
+	
+	\begin{minted}[bgcolor=gray!10]{python}
+xs = [1.5, 2.4, 1.8, 2.1, 1.95, 2.01, 1.99]
+for x in xs:
+  self.play(t.animate.set_value(x), run_time=1)
+	\end{minted}
+	
+	Mit \verb*|dot.remove_updater(updater)| kann man einzelne Updater und mit \verb*|dot.clear_updater()| kann man alle Updater entfernen.
+	
+	
+\newpage
+
+\textbf{Aufgaben:}
+
+\begin{aufgabe}
+	Betrachte folgenden Code. Was macht der rote Punkt?
+	
+	\begin{minted}[bgcolor=gray!10]{python}
+class UpdaterBasic(Scene):
+  def construct(self):
+    dot = Dot(color=RED)
+
+    def move_right(mobj, dt):
+      mobj.shift(RIGHT * dt)
+
+    dot.add_updater(move_right)
+    self.add(dot)
+    self.wait(3)
+
+	\end{minted}
+	In welche Richtung bewegt sich der Punkt?
+	Was passiert, wenn man \verb|dt| durch \verb|2*dt| ersetzt?
+\end{aufgabe}
+
+\begin{aufgabe}
+	
+	Ein Kreis bewegt sich auf dem Bildschirm. Ein Text soll immer über dem Kreis stehen, egal wohin er wandert. Ergänze den fehlenden Updater.
+	
+	\begin{minted}[bgcolor=gray!10]{python}
+class LabelFollowsCircle(Scene):
+  def construct(self):
+    circle = Circle().shift(LEFT)
+    label = Text("Ich folge").next_to(circle, UP)
+    self.add(circle, label)
+    
+    # TODO: Ergänze hier einen Updater, der label an circle bindet
+
+    # Kreis bewegt sich nach rechts
+    self.play(circle.animate.shift(4 * RIGHT), run_time=4)
+	\end{minted}
+\end{aufgabe}
+\begin{aufgabe}
+	Erstelle ein Quadrat, das sich auf einer horizontalen Linie bewegt. Wenn es am rechten Rand ankommt, soll es zurückspringen. Nutze Updater und einfache Bedingungen.
+\end{aufgabe}
+	
+	\printlicense
+	
+\end{document}

@@ -1,0 +1,183 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper,margin=3cm]{geometry}
+\usepackage{minted}
+\usepackage{xcolor}
+\usepackage{csquotes}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{\medskipamount}
+
+\title{Einführung in Manim}
+\author{}
+\date{}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section*{Einleitung}
+	
+	Manim bietet die Möglichkeit, mathematische Zusammenhänge zu animieren. Das wollen wir uns im nächsten Kapitel anschauen.
+	
+	\section{Wie sieht ein Manim-Programm aus}
+	
+	Beispiel:
+	
+	\begin{minted}[bgcolor=gray!10]{python}
+from manim import * # Import von Manim
+
+class Example(Scene):
+  def construct(self):
+    dot = Dot(color=BLUE)
+    square = Square(color=GREEN, fill_opacity=0.5)
+    
+    dot.next_to(square, DOWN)
+    self.add(square, dot)
+	\end{minted}
+	
+	Wenn wir Manim-Programme mit Jupyter oder Colab rendern wollen, müssen wir in die erste Zeile der Zelle folgendes schreiben:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+%%manim -qm <Classname>
+	\end{minted}
+	
+	wobei \verb|<Classname>| den Namen der jeweiligen Klasse beschreibt.
+	
+	\section{Mobjects}
+	
+	\begin{minted}[bgcolor=gray!10]{python}
+from manim import *
+
+class Shapes(Scene):
+  def construct(self):
+    circle = Circle()
+    square = Square()
+    triangle = Triangle()
+
+    circle.shift(LEFT)
+    square.shift(UP)
+    triangle.shift(RIGHT)
+
+    self.add(circle, square, triangle)
+	\end{minted}
+	
+	Mögliche Mobjects sind u.A.
+	\begin{itemize}
+		\item \verb|Polygon|,
+		\item \verb|Rectangle|,
+		\item \verb*|RegularPolygon|,
+		\item \verb*|Square|
+		\item \verb*|Star|,
+		\item \verb*|Triangle|,
+		\item \verb*|Line|,
+		\item \verb*|Angle| bzw. \verb*|RightAngle|,
+		\item \verb*|Dot|,
+		\item \verb*|Tex| bzw. \verb*|MathTex|
+	\end{itemize}
+	
+	Der Koordinatenursprung wird mit \verb*|ORIGIN| bezeichnet. Die Richtungen sind \verb*|UP|, \verb*|DOWN|, \verb*|LEFT| und \verb*|RIGHT|.
+	
+	Methoden wie \verb|.shift()| können auch zusammengefügt werden. So haben folgende beiden Programmausschnitte die gleiche Funktion:
+	
+	\begin{minted}[bgcolor=gray!10]{python}
+square = Square()
+square.shift(DOWN)
+
+square = Square().shift(DOWN)
+	\end{minted}
+	
+	Andere Möglichkeiten zur Positionierung sind folgende:
+	
+	\begin{minted}[bgcolor=gray!10]{python}
+from manim import *
+	
+class Shapes(Scene):
+  def construct(self):
+    circle = Circle()
+	square = Square()
+	triangle = Triangle()
+	
+	circle.move_to(2 * LEFT)
+	square.next_to(circle, LEFT)
+	triangle.align_to(circle, RIGHT)
+	
+	self.add(circle, square, triangle)
+\end{minted}
+
+	\section{Styling}
+	
+\begin{minted}[bgcolor=gray!10]{python}
+from manim import *
+
+class MobjectStyling(Scene):
+  def construct(self):
+    circle = Circle().shift(LEFT)
+    square = Square().shift(UP)
+    triangle = Triangle().shift(RIGHT)
+
+    circle.set_stroke(color=GREEN, width=20)
+    square.set_fill(YELLOW, opacity=1.0)
+    triangle.set_fill(PINK, opacity=0.5)
+
+    self.add(circle, square, triangle)
+\end{minted}
+
+Die Reihenfolge der Mobjects kann man durch die Reihenfolge in \verb*|.add| ändern: \mintinline{python}|self.add(circle, square, triangle)| vs. \mintinline{python}|self.add(triangle, circle, square)|
+
+	\section{Animationen}
+	
+\begin{minted}[bgcolor=gray!10]{python}
+from manim import *
+
+class SomeAnimations(Scene):
+  def construct(self):
+    square = Square()
+
+    self.play(FadeIn(square))
+
+    self.play(Rotate(square, PI/4))
+
+    self.play(FadeOut(square))
+
+    self.wait(1)
+\end{minted}
+
+Wir können aber auch über die Methode \verb*|.animate| auf das Mobject zugreifen:
+
+\begin{minted}[bgcolor=gray!10]{python}
+from manim import *
+	
+class SomeAnimations(Scene):
+  def construct(self):
+	square = Square()
+	
+	self.add(square)
+	
+	self.play(square.animate.set_fill(WHITE))
+	
+	self.play(square.animate.shift(UP).rotate(PI/4), run_time = 3)
+	
+	self.play(FadeOut(square))
+	
+	self.wait(1)
+\end{minted}
+
+\begin{minted}[bgcolor=gray!10]{python}
+from manim import *
+	
+class SomeAnimations(Scene):
+  def construct(self):
+	tex = MathTex(r'\frac{10}{x}')
+	
+	self.add(tex)
+	
+	self.play(tex.animate.shift(UP).rotate(PI/4), run_time = 3)
+	
+	self.play(FadeOut(tex))
+	
+	self.wait(1)
+\end{minted}
+	
+\end{document}

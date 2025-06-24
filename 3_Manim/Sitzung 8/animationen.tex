@@ -1,0 +1,334 @@
+% !TeX program = pdflatex
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath, amssymb}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{tcolorbox}
+\usepackage{hyperref}
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=blue}
+
+\usepackage[cache=false]{minted}
+\usemintedstyle{vs}
+\definecolor{codebg}{gray}{0.95}
+
+\title{Animationen mit Manim}
+\author{Lehrveranstaltungsskript}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\section*{Einleitung}
+Manim ist ein leistungsstarkes Python-Framework zur Erstellung mathematischer Animationen. Dieses Skript behandelt die wichtigsten Animationsklassen und Methoden in Manim, erläutert ihre Funktionsweise, gibt Beispiele und beleuchtet didaktische Hinweise für den Einsatz im Unterricht oder in Erklärvideos.
+
+\section{Grundlegende Animationen}
+
+\subsection{\texttt{Create}}
+Die Methode \texttt{Create} zeichnet das Objekt Schritt für Schritt auf den Bildschirm. Sie eignet sich besonders für geometrische Objekte oder zur Hervorhebung neuer Inhalte.
+
+Beispiel:
+\begin{minted}[bgcolor=codebg]{python}
+class CreateExample(Scene):
+  def construct(self):
+    square = Square(fill_color=BLUE, fill_opacity=0.5)
+    self.play(Create(square))
+    self.wait()
+\end{minted}
+
+Die \texttt{Create}-Animation erzeugt das Objekt visuell, als würde es gezeichnet werden. Verwendbar mit allen Objekten, die von \texttt{Mobject} erben.
+
+\subsection{\texttt{Write}}
+\texttt{Write} zeigt ein Textobjekt so an, als würde es geschrieben – ideal für \texttt{Text}, \texttt{Tex} oder \texttt{MathTex}.
+
+Beispiel:
+\begin{minted}[bgcolor=codebg]{python}
+class WriteExample(Scene):
+  def construct(self):
+    text = Text("Hallo Welt")
+    self.play(Write(text))
+    self.wait()
+\end{minted}
+
+Die Zeichen erscheinen dabei nacheinander – ein Effekt, der besonders für Erklärtexte geeignet ist.
+
+\subsection{\texttt{AddTextLetterByLetter} und \texttt{AddTextWordByWord}}
+
+\begin{minted}[bgcolor=codebg]{python}
+class AddTextLetterByLetterExample(Scene):
+  def construct(self):
+    text = Text("Hallo Welt")
+    self.play(AddTextLetterByLetter(text))
+    self.wait()
+\end{minted}
+
+\subsection{\texttt{DrawBorderThenFill}}
+\texttt{DrawBorderThenFill} zeichnet zunächst den Rand eines Objekts und füllt danach die Fläche. Dadurch entsteht eine elegante Zeichenanimation.
+
+Beispiel:
+\begin{minted}[bgcolor=codebg]{python}
+class DrawFill(Scene):
+  def construct(self):
+    circle = Circle()
+    self.play(DrawBorderThenFill(circle))
+    self.wait()
+\end{minted}
+
+Besonders geeignet für Hervorhebungen oder Einführungen neuer geometrischer Objekte.
+
+\section{Weitere Animationen}
+
+\subsection{ShowIncreasingSubsets}
+Diese Animation zeigt die Teilmengen eines Objekts nach und nach an – z.B. für Punktmengen oder Aufzählungen.
+
+\begin{minted}[bgcolor=codebg]{python}
+class IncreasingSubsetsExample(Scene):
+  def construct(self):
+    dots = VGroup(*[Dot(point=[x, 0, 0]) for x in range(-5, 6)])
+    self.play(ShowIncreasingSubsets(dots))
+    self.wait()
+\end{minted}
+
+Ideal zur Visualisierung von Reihenfolgen oder schrittweisem Aufbau.
+
+
+\subsection{ShowSubmobjectsOneByOne}
+Hierbei werden die Unterobjekte eines Mobjects (z.~B. Buchstaben eines Textes) einzeln eingeblendet.
+
+\begin{minted}[bgcolor=codebg]{python}
+class SubmobjectsExample(Scene):
+  def construct(self):
+    word = Text("Hallo")
+    self.play(ShowSubmobjectsOneByOne(word))
+    self.wait()
+\end{minted}
+
+Eine einfache Möglichkeit für Effekte wie Buchstabieren oder Listenpunkte.
+
+\subsection{SpiralIn}
+\texttt{SpiralIn} lässt Objekte aus einer Spirale erscheinen.
+
+\begin{minted}[bgcolor=codebg]{python}
+class SpiralInExample(Scene):
+  def construct(self):
+    text = Text("Hallo Welt")
+    self.play(SpiralIn(text))
+    self.wait()
+\end{minted}
+
+\subsection{Uncreate, Unwrite}
+Diese Methoden sind die Umkehrung von \texttt{Create} bzw. \texttt{Write}.
+
+\begin{minted}[bgcolor=codebg]{python}
+class RemoveExample(Scene):
+  def construct(self):
+    obj = Circle()
+    self.play(Create(obj))
+    self.wait()
+    self.play(Uncreate(obj))
+    self.wait()
+\end{minted}
+
+Nützlich für Übergänge oder um Inhalte zu entfernen.
+
+\subsection{FadeIn, FadeOut}
+Blendet Objekte sanft ein oder aus. Standardanimation für viele Übergänge.
+
+\begin{minted}[bgcolor=codebg]{python}
+class FadeExample(Scene):
+  def construct(self):
+    square = Square()
+    self.play(FadeIn(square))
+    self.wait()
+    self.play(FadeOut(square))
+    self.wait()
+\end{minted}
+
+\subsection{Grow}
+Animationen wie \texttt{GrowFromCenter} oder \texttt{GrowFromEdge} lassen Objekte aus einem bestimmten Punkt heraus erscheinen. Sehr nützlich zur Hervorhebung.
+
+\begin{minted}[bgcolor=codebg]{python}
+class GrowExample(Scene):
+  def construct(self):
+    circ = Circle()
+    self.play(GrowFromCenter(circ))
+    self.wait()
+\end{minted}
+
+\section{Indications}
+\subsection{ApplyWave}
+Verleiht dem Objekt eine wellenartige Verzerrung. Gut für dramatische oder humorvolle Effekte.
+
+\begin{minted}[bgcolor=codebg]{python}
+class WaveExample(Scene):
+  def construct(self):
+    text = Text("Wellen")
+    self.play(ApplyWave(text))
+    self.wait()
+\end{minted}
+
+\subsection{Blink}
+Ein subtiler Effekt, bei dem das Objekt kurz aus- und eingeblendet wird, wie ein Blinzeln.
+
+\begin{minted}[bgcolor=codebg]{python}
+class BlinkExample(Scene):
+  def construct(self):
+    dot = Dot()
+    self.add(dot)
+    self.play(Blink(dot))
+    self.wait()
+\end{minted}
+
+\subsection{Circumscribe}
+\texttt{Circumscribe} hebt ein Objekt hervor, indem es umrundet wird – ideal, um die Aufmerksamkeit gezielt zu lenken.
+
+\begin{minted}[bgcolor=codebg]{python}
+class CircumscribeExample(Scene):
+  def construct(self):
+    square = Square()
+    self.add(square)
+    self.play(Circumscribe(square))
+    self.wait()
+\end{minted}
+
+\subsection{Flash}
+\texttt{Flash} erzeugt eine blitzartige Hervorhebung von Koordinaten oder Punkten – besonders hilfreich, um Punkte zu markieren.
+
+\begin{minted}[bgcolor=codebg]{python}
+class FlashExample(Scene):
+  def construct(self):
+    self.play(Flash(point=ORIGIN))
+    self.wait()
+\end{minted}
+
+\subsection{FocusOn}
+\texttt{FocusOn} simuliert einen Lichteffekt, der ein Objekt in den Vordergrund hebt.
+
+\begin{minted}[bgcolor=codebg]{python}
+class FocusOnExample(Scene):
+  def construct(self):
+    square = Square()
+    self.add(square)
+    self.play(FocusOn(square))
+    self.wait()
+\end{minted}
+
+\subsection{Indicate}
+\texttt{Indicate} animiert ein Objekt durch Pulsieren oder Skalierung – gut zur Betonung oder Wiederholung.
+
+\begin{minted}[bgcolor=codebg]{python}
+class IndicateExample(Scene):
+  def construct(self):
+    text = Text("Wichtig!")
+    self.add(text)
+    self.play(Indicate(text))
+    self.wait()
+\end{minted}
+
+\subsection{ShowPassingFlash}
+\texttt{ShowPassingFlash} zeigt eine Animation, die ein Objekt entlang einer Linie oder Kurve passiert – etwa zur Darstellung von Bewegung.
+
+\begin{minted}[bgcolor=codebg]{python}
+class PassingFlashExample(Scene):
+  def construct(self):
+    line = Line(LEFT, RIGHT)
+    self.add(line)
+    self.play(ShowPassingFlash(line.copy().set_color(RED)))
+    self.wait()
+\end{minted}
+
+\subsection{Wiggle}
+\texttt{Wiggle} lässt ein Objekt zittern oder vibrieren – nützlich für Unsicherheit oder Unruhe.
+
+\begin{minted}[bgcolor=codebg]{python}
+class WiggleExample(Scene):
+  def construct(self):
+    square = Square()
+    self.add(square)
+    self.play(Wiggle(square))
+    self.wait()
+\end{minted}
+
+\subsection{ComplexHomotopy, Homotopy}
+Diese Methoden erlauben kontinuierliche Transformationen über eine benutzerdefinierte Funktion. Sie eignen sich z.~B. für Verzerrungseffekte oder topologische Demonstrationen.
+
+\begin{minted}[bgcolor=codebg]{python}
+class HomotopyExample(Scene):
+  def construct(self):
+    square = Square()
+    def wave(x, y, z, t):
+      return x, y + 0.5 * np.sin(2 * np.pi * t + x), z
+    self.play(Homotopy(wave, square))
+    self.wait()
+\end{minted}
+
+\subsection{MoveAlongPath}
+Lässt ein Objekt einer Kurve folgen.
+
+\begin{minted}[bgcolor=codebg]{python}
+class PathExample(Scene):
+  def construct(self):
+    path = Circle()
+    dot = Dot()
+    self.play(MoveAlongPath(dot, path))
+    self.wait()
+\end{minted}
+
+\section{\texttt{rotate()} vs. \texttt{animate.rotate()}}
+Manim unterscheidet zwischen sofortigen Methodenaufrufen und animierten Transformationen:
+
+\begin{minted}[bgcolor=codebg]{python}
+class RotateVsAnimate(Scene):
+  def construct(self):
+    square = Square()
+    self.add(square)
+    self.play(square.animate.rotate(PI / 4)) 
+    self.wait()
+    self.play(Rotate(square, PI / 4))
+    self.wait()
+\end{minted}
+
+Die Methode \texttt{rotate()} verändert das Objekt sofort. Erst \texttt{animate.rotate()} erzeugt eine Animation.
+
+\section{Transform-Animationen}
+\texttt{Transform}, \texttt{ReplacementTransform}, \texttt{FadeTransform} und \texttt{TransformMatchingTex} sind leistungsstarke Werkzeuge zur schrittweisen Umwandlung von Objekten.
+
+\textbf{Beispiel für \texttt{Transform}:}
+\begin{minted}[bgcolor=codebg]{python}
+class TransformExample(Scene):
+  def construct(self):
+    square = Square()
+    circle = Circle()
+    self.add(square)
+    self.play(Transform(square, circle))
+    self.wait()
+\end{minted}
+
+\textbf{\texttt{ReplacementTransform}} entfernt das Ursprungsobjekt automatisch:
+\begin{minted}[bgcolor=codebg]{python}
+self.play(ReplacementTransform(square, circle))
+\end{minted}
+
+\textbf{\texttt{FadeTransform}} kombiniert Überblenden mit Veränderung:
+\begin{minted}[bgcolor=codebg]{python}
+self.play(FadeTransform(square, circle))
+\end{minted}
+
+\textbf{\texttt{TransformMatchingTex}} eignet sich für mathematische Umformungen, bei denen einzelne Terme erhalten bleiben:
+
+\begin{minted}[bgcolor=codebg]{python}
+class TexTransform(Scene):
+  def construct(self):
+    expr1 = MathTex("a^2 + b^2")
+    expr2 = MathTex("c^2")
+    self.add(expr1)
+    self.play(TransformMatchingTex(expr1, expr2))
+    self.wait()
+\end{minted}
+
+\section*{Abschließende Hinweise}
+Dieses Skript deckt eine Vielzahl nützlicher Animationsmethoden in Manim ab. Für die vollständige Liste siehe die Manim-Dokumentation unter \url{https://docs.manim.community}.
+
+\end{document}

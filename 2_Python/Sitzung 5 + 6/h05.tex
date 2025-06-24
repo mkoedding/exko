@@ -1,0 +1,40 @@
+\documentclass[a4paper, 12pt]{mksheetphhd}
+
+\title{Container}
+\author{Marvin Ködding}
+\usepackage{minted}
+\usepackage{multicol}
+
+\everymath{\displaystyle}
+
+\begin{document}
+	\printtitle
+	
+	\vspace*{.5cm}
+	
+	\begin{aufgabe}
+		Gegeben ist ein Text als Zeichenkette. Schreibe eine Funktion, die ein Dictionary zurückgibt, in dem jedem Wort seine Häufigkeit zugeordnet ist.
+		
+		\begin{minted}[bgcolor=gray!10]{python}
+text = "der hund läuft und der hund bellt"
+>> {'der': 2, 'hund': 2, 'läuft': 1, 'und': 1, 'bellt': 1}
+		\end{minted}
+		Hinweis: Tipp: Verwende \verb|split()| und ein leeres \verb|dict|.
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Schreibe eine Funktion \verb|abstand(p1, p2)|, die den euklidischen Abstand zwischen zwei Punkten \verb|p1| und \verb|p2| im 2D-Raum berechnet. Die Punkte sind jeweils als Tupel \verb|(x, y)| gegeben.
+		\begin{minted}[bgcolor=gray!10]{python}
+p1 = (1, 2)
+p2 = (4, 6)
+
+>> 5.0
+		\end{minted}
+		
+	\end{aufgabe}
+	
+	\printlicense
+	
+	\printsocials
+	
+\end{document}

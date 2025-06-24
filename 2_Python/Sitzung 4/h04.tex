@@ -1,0 +1,75 @@
+\documentclass[a4paper, 12pt]{mksheetphhd}
+
+\title{Listen über Listen}
+\author{Marvin Ködding}
+\usepackage{minted}
+\usepackage{multicol}
+
+\everymath{\displaystyle}
+
+\begin{document}
+	\printtitle
+	
+	\vspace*{1cm}
+	
+	\begin{aufgabe}
+		Man kann Bedingungen, die man testen will, miteinander mittels Junktoren verknüpfen. Diese sind \verb*|not|, \verb*|and| und \verb*|or|. Im folgenden Block wird der \verb*|print|-Befehl nicht ausgeführt, wenn der Wert von $x$ zwischen $10$ und $20$ liegt.
+		
+		\begin{minted}{python}
+if x < 10 or x > 20:
+  print(x)
+		\end{minted}
+		
+		Der Block
+		
+		\begin{minted}{python}
+if not (x >= 10 and x <= 20):
+  print(x)
+		\end{minted}
+		
+		bewirkt dabei den gleichen Effekt. Probiert es selbst aus. Verknüpft mehrere Aussagen mittels Junktoren.
+	\end{aufgabe}
+	
+	\begin{comment}
+		Berechnet das Produkt $1 \cdot 3 \cdot 5 \cdot \dots \cdot 33$ \dots
+		\begin{enumerate}
+			\item mit einer while-Schleife und
+			\item mit einer for-Schleife
+		\end{enumerate}
+	\end{comment}
+	
+	\begin{aufgabe}
+		Gebt die Summe der ersten $100$ natürlichen Zahlen an, die durch $7$ teilbar sind. Verwendet dabei
+		\begin{enumerate}
+			\item eine while-Schleife,
+			\item eine for-Schleife,
+			\item List Comprehensions.
+		\end{enumerate}
+		Findet andere Beispiele, bei denen ein Schleifentyp besser ist als ein anderer.
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Ihr bekommt eine Zeichenkette übergeben. Verwendet eine List Comprehension, um zu zählen, wie viele Vokale diese Zeichenkette enthält.
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Ihr bekommt eine Liste an Wörter übergeben. Gebt eine Liste zurück, in der die Längen der Wörter stehen. Bspw. soll zur Eingabe \mintinline{python}|["Banane", "Apfel"]| die Ausgabe \mintinline{python}|[6, 5]| zurückgegeben werden. Verwendet eine for-Schleife und List Comprehensions.
+	\end{aufgabe}
+	
+	\textit{Bearbeitet die folgenden Aufgaben ausführlich. Diese brauchen wir in der Plenumsveranstaltung zur Diskussion.}
+	
+	\begin{aufgabe}
+		Schreibt eine Funktion \mintinline{python}|fib(n)|, die die $n$-te Fibonaccizahl zurückgibt. Erstellt eine Liste der ersten $10$, $20$ und $50$ Fibonaccizahlen.
+		
+		\small Hinweis: Die Folge der Fibonaccizahlen wird rekursiv definiert als $f_0 = f_1 = 1$ und $f_n = f_{n-2} + f_{n-1}$. 
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Überlegt euch eine Alternative, um die vorherige Aufgabe zu lösen. Verwendet \textit{nicht} die explizite Darstellung!
+	\end{aufgabe}
+	
+	\printlicense
+	
+	\printsocials
+	
+\end{document}

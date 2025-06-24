@@ -1,0 +1,82 @@
+\documentclass[a4paper, 12pt]{mksheetphhd}
+
+\title{Animationen}
+\author{Marvin Ködding}
+\usepackage{minted}
+\usepackage{multicol}
+
+\everymath{\displaystyle}
+
+\begin{document}
+	\printtitle
+	
+	\vspace*{.5cm}
+	
+	\begin{aufgabe}
+		Zeichne zwei Kreise, die links und rechts auf dem Bildschirm liegen. Verbinde ihre jeweiligen rechten und linken kritischen Punkte mit Linien. Verwende \verb|get_critical_point| und Line.
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Zeige einen längeren Satz als Text-Objekt. Lasse ein Wort darin mit \verb|FocusOn| hervorheben und anschließend mit \verb|Circumscribe| umranden.
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Erstelle das Wort \texttt{VISUALISIERUNG}, wobei jeder Buchstabe eine andere Farbe bekommt und mit AddTextLetterByLetter einzeln erscheint. Danach lasse die Buchstaben mit FadeOut verschwinden – aber rückwärts Buchstabe für Buchstabe (also letzter Buchstabe zuerst).
+		
+		{\it Hinweis: Schleife über die Buchstaben oder Liste der Buchstaben in umgekehrter Reihenfolge (\verb|list[::-1]| gibt eine Liste in umgekehrter Reihenfolge aus)}
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Erstelle ein 5×5-Raster aus Kreisen \verb|(VGroup(...).arrange_in_grid())| und lasse einen zufälligen Kreis kurz mit Flash aufleuchten. Nutze \verb|random.choice(...)|.
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Erstell eine Szene, in der die Produktregel der Differentialrechnung schrittweise aufgebaut und animiert wird.
+		
+		Folgende Schritte sollen umgesetzt werden:
+		\begin{enumerate}
+			\item Starte mit der Formel \(\frac{\mathrm{d}}{\mathrm{d}x} \bigl[f(x) \cdot g(x)\bigr]\).
+			\item Ersetze sie schrittweise durch \(\frac{\mathrm{d}}{\mathrm{d}x}f(x) \cdot g(x) + f(x) \cdot \frac{\mathrm{d}}{\mathrm{d}x}g(x)\) oder nutze eine andere Animation.
+			\item Wenn du magst, kannst du durch \verb*|Indicate| o.Ä. die zu ersetzenden Parts kennzeichnen.
+		\end{enumerate}
+	\end{aufgabe}
+	
+	\newpage
+	
+	Beispiellösung:
+	\begin{minted}[bgcolor=gray!10, breaklines]{python}
+class ProductRuleAnimation(Scene):
+  def construct(self):
+    # Schritt 1: Ursprungsformel
+    start = MathTex(r"{{\frac{d}{dx}}} \left[ {{f(x)}} \cdot {{g(x)}} \right]", font_size=72).shift(UP)
+    self.play(Write(start))
+    self.add(index_labels(start))
+    self.wait()
+    print(len(start))
+    
+    # Schritt 2: Produktregel
+    result = MathTex(
+    r"{{\frac{d}{dx}}} {{f(x)}} \cdot {{g(x)}} + {{f(x)}} \cdot {{\frac{d}{dx}}}{{g(x)}}",
+    font_size=72
+    ).shift(DOWN)
+    self.add(index_labels(result))
+    
+    self.play(
+    	TransformFromCopy(start[0], result[0]),
+    	TransformFromCopy(start[2], result[2]),
+    )
+    self.play(FadeIn(result[3]))
+    self.play(TransformFromCopy(start[4], result[4]))
+    self.play(FadeIn(result[5]))
+    self.play(TransformFromCopy(start[2], result[6]))
+    self.play(FadeIn(result[7]))
+    self.play(
+    	TransformFromCopy(start[0], result[8]), TransformFromCopy(start[4], result[10]))
+    self.wait()
+	\end{minted}
+	
+	\printlicense
+	
+	\printsocials
+	
+\end{document}

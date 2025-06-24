@@ -1,0 +1,162 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper,margin=3cm]{geometry}
+\usepackage{minted}
+\usepackage{xcolor}
+\usepackage{csquotes}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{\medskipamount}
+
+\title{Listen in Python – oder: Wie man seine Daten hübsch verpackt}
+\author{}
+\date{}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section*{Einleitung}
+	
+	Listen gehören zu den grundlegenden Datenstrukturen in Python. Sie erlauben es, mehrere Werte in geordneter Weise zu speichern, auf sie zuzugreifen, sie zu verändern und systematisch zu verarbeiten. Durch ihre Flexibilität und einfache Handhabung sind Listen für viele algorithmische Aufgaben ein geeignetes Werkzeug. In diesem Kapitel betrachten wir die wesentlichen Aspekte von Listen, darunter ihre Erzeugung, den Zugriff auf Elemente, typische Bearbeitungsmethoden und den Einsatz in Schleifen und sogenannten \emph{List Comprehensions}.
+	
+	\section*{1. Erzeugung von Listen}
+	
+	Eine Liste in Python wird durch eckige Klammern notiert. Die enthaltenen Elemente werden durch Kommata getrennt:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+zahlen = [1, 2, 3, 4]
+\end{minted}
+	
+	Listen können unterschiedliche Datentypen enthalten, etwa ganze Zahlen, Zeichenketten oder Wahrheitswerte:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+gemischt = [42, "Hallo", True]
+\end{minted}
+	
+	Auch leere Listen sind möglich:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+leer = []
+\end{minted}
+	
+	Alternativ lassen sich Listen über Konstruktorfunktionen wie \texttt{list()} erstellen:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+aus_string = list("abc")     # ['a', 'b', 'c']
+aus_range = list(range(5))   # [0, 1, 2, 3, 4]
+\end{minted}
+	
+	\section*{2. Zugriff auf Elemente}
+	
+	Listen sind geordnet, das heißt, ihre Elemente haben eine feste Reihenfolge. Der Zugriff erfolgt über sogenannte \emph{Indizes}, beginnend bei 0:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+zahlen[0]    # ergibt 1
+zahlen[-1]   # ergibt 4 (letztes Element)
+\end{minted}
+	
+	Mit \emph{Slicing} kann man Teilstücke einer Liste extrahieren:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+zahlen[1:3]  # ergibt [2, 3]
+zahlen[:2]   # ergibt [1, 2]
+zahlen[2:]   # ergibt [3, 4]
+\end{minted}
+	
+	Dabei gilt stets: der Startindex ist inklusive, der Endindex exklusiv.
+	
+	\section*{3. Veränderung von Listen}
+	
+	Listen sind \emph{veränderbare} (mutable) Objekte. Das bedeutet, dass ihre Inhalte nachträglich geändert werden können:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+zahlen[2] = 99             # ersetzt das dritte Element durch 99
+zahlen.append(5)           # fügt 5 am Ende an
+zahlen.insert(1, 42)       # fügt 42 an Position 1 ein
+zahlen.remove(99)          # entfernt erstes Vorkommen von 99
+letztes = zahlen.pop()     # entfernt und gibt das letzte Element zurück
+\end{minted}
+	
+	\texttt{append} ist die einfachste Methode, um Listen zu erweitern. Mit \texttt{insert} kann man gezielt einfügen, während \texttt{remove} und \texttt{pop} der Entfernung von Elementen dienen.
+	
+	\section*{4. Iteration über Listen}
+	
+	Ein zentrales Anwendungsfeld von Listen ist die systematische Verarbeitung ihrer Elemente. Dies geschieht meist mit einer \texttt{for}-Schleife:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+for zahl in zahlen:
+  print(zahl)
+\end{minted}
+	
+	Wenn zusätzlich die Position des Elements benötigt wird, kann \texttt{enumerate} verwendet werden:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+for i, zahl in enumerate(zahlen):
+  print(i, zahl)
+\end{minted}
+	
+	\section*{5. List Comprehensions}
+	
+	Python erlaubt eine besonders kompakte Notation zur Erstellung neuer Listen auf Basis vorhandener Daten: \emph{List Comprehensions}.
+	
+\begin{minted}[bgcolor=gray!10]{python}
+quadrate = [x**2 for x in range(5)]
+\end{minted}
+	
+	Diese Zeile erzeugt eine Liste der Quadratzahlen von 0 bis 4. Bedingungen lassen sich integrieren:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+gerade_quadrate = [x**2 for x in range(10) if x % 2 == 0]
+\end{minted}
+	
+	So entstehen neue Listen durch Kombination von Iteration, Selektion und Transformation – in einer Zeile.
+	
+	\section*{6. Nützliche Funktionen}
+	
+	Für viele Aufgaben bietet Python eingebaute Funktionen zur Verarbeitung von Listen:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+len(zahlen)      # Länge der Liste
+sum(zahlen)      # Summe aller Elemente
+min(zahlen)      # kleinstes Element
+max(zahlen)      # größtes Element
+zahlen.count(4)  # Anzahl der Vorkommen von 4
+zahlen.index(3)  # Position des ersten Vorkommens von 3
+\end{minted}
+	
+	\texttt{len} und \texttt{sum} sind hilfreich bei numerischen Listen, \texttt{count} und \texttt{index} bei der Analyse von Inhalten.
+	
+	\section*{7. Kopieren und Kombinieren}
+	
+	Listen lassen sich mit dem Pluszeichen verbinden:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+a = [1, 2]
+b = [3, 4]
+c = a + b        # [1, 2, 3, 4]
+\end{minted}
+	
+	Achtung: Eine Zuweisung wie \texttt{b = a} erzeugt keine Kopie, sondern eine zweite Referenz auf dieselbe Liste. Um eine Kopie zu erstellen, kann man \texttt{copy()} oder ein Slice verwenden:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+b = a.copy()
+# oder
+b = a[:]
+\end{minted}
+	
+	\section*{8. Beispielaufgabe}
+	
+	Gegeben ist eine Liste von Zahlen. Gesucht ist eine Liste, die die Quadrate aller geraden Zahlen enthält.
+	
+\begin{minted}[bgcolor=gray!10]{python}
+zahlen = [1, 2, 3, 4, 5, 6]
+ergebnis = [x**2 for x in zahlen if x % 2 == 0]
+print(ergebnis)  # Ausgabe: [4, 16, 36]
+\end{minted}
+	
+	Diese Aufgabe illustriert die kombinierte Verwendung von Iteration, Bedingung und Transformation in einer List Comprehension.
+	
+	
+\end{document}

@@ -1,0 +1,74 @@
+\documentclass[a4paper, 12pt]{cssheet}
+
+\title{Rekursion und dynamische Programmierung}
+\author{Marvin Ködding}
+\usepackage{minted}
+\usepackage{multicol}
+
+\everymath{\displaystyle}
+
+\begin{document}
+	\printtitle
+	
+	\vspace*{.5cm}
+	
+	\begin{aufgabe}
+		Schreibt eine Funktion \mintinline{python}|fib(n)|, die die $n$-te Fibonaccizahl zurückgibt. Erstellt eine Liste der ersten $10$, $20$ und $50$ Fibonaccizahlen.
+		
+		\it Erstellt eine Liste \mintinline{python}|fibs = [1, 1]|, in der ihr die folgenden Fibonaccifolge einlagert. Nun könnt ihr die letzten beiden Elemente der Liste nutzen, um die darauffolgenden Folgenglieder zu berechnen.
+		
+		\small Hinweis: Die Folge der Fibonaccizahlen wird rekursiv definiert als $f_0 = f_1 = 1$ und $f_n = f_{n-2} + f_{n-1}$. 
+	\end{aufgabe}
+	
+	Für die folgenden Aufgaben benötigt ihr eine Liste an Primzahlen. Ansonsten dauert die Berechnung unnötig lang. Diese findet ihr im Moodle zum Download.
+	
+	Folgendermaßen könnt ihr die Datei dann einbinden:
+	
+	\begin{minted}[bgcolor=gray!10]{python}
+with open("primes.csv") as f:
+  primes = []
+  for line in f:
+    for prime in line.split(", "):
+      primes.append(int(prime))
+	\end{minted}
+	
+	Danach könnt ihr mit der Liste \mintinline{python}|primes| arbeiten. Diese enthält nun alle Primzahlen bis $10\,000$.
+	
+	\begin{aufgabe}
+		Die Goldbachsche Vermutung besagt, dass jede gerade Zahl größer als $2$ Summe zweier Primzahlen ist. Prüft diese Vermutung für alle geraden Zahlen bis $10\,000$. 
+	\end{aufgabe}
+	
+	\begin{aufgabe}
+		Die schwache Goldbachsche Vermutung besagt, dass jede ungerade Zahl größer als $5$ die Summe dreier Primzahlen ist. Überprüft auch diese Vermutung. 
+	\end{aufgabe}
+	
+	\newpage
+	\begin{aufgabe}
+		Nochmal zurück zur Goldbachschen Vermutung: Wie viele Möglichkeiten gibt es, die Zahl $8\,000$ als Summe zweier Primzahlen darzustellen? Wie sieht es bei den anderen Zahlen aus? Stellt die Anzahl der Möglichkeiten, eine gerade Zahl als Summe zweier Primzahlen darzustellen, in einem Scatterplot dar.
+		
+		Dafür braucht ihr ein Paket:
+		\begin{minted}[bgcolor=gray!10]{python}
+import matplotlib.pyplot as plt
+		\end{minted}
+		
+		Dann müsst ihr eure Daten aufbereiten. Dafür empfehle ich zwei Listen:
+		
+		\begin{minted}[bgcolor=gray!10]{python}
+x = [4,    6,    8,    ...]
+y = [f(4), f(6), f(8), ...]
+		\end{minted}
+		
+		Hierbei steht $x$ für die Zahl, die ihr als Summe zweier Primzahlen darstellen wollt und $f(x)$ die Anzahl der Möglichkeiten, die ihr dafür habt. Anschließend könnt ihr das Scatterplot zeichnen lassen.
+		
+		\begin{minted}[bgcolor=gray!10]{python}
+plt.scatter(x, y)
+		\end{minted}
+		
+		(Mit matplotlib kann man noch ganz andere Plots darstellen. Eine Übersicht dazu findet ihr im Netz!)
+	\end{aufgabe}
+		
+	\printlicense
+	
+	\printsocials
+	
+\end{document}

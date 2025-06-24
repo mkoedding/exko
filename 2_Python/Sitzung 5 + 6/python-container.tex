@@ -1,0 +1,184 @@
+\documentclass[12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[a4paper,margin=3cm]{geometry}
+\usepackage{minted}
+\usepackage{xcolor}
+\usepackage{csquotes}
+
+\setlength{\parindent}{0em}
+\setlength{\parskip}{\medskipamount}
+
+\title{Container in Python: Sammeln von Daten}
+\author{}
+\date{}
+
+\begin{document}
+	
+	\maketitle
+	
+	\section*{Einleitung}
+	
+	Neben Listen bietet Python weitere grundlegende Datenstrukturen, die spezifische Eigenschaften aufweisen und für bestimmte Aufgaben besser geeignet sind. In diesem Kapitel behandeln wir zunächst \texttt{dict} und \texttt{set}, zwei sogenannte \emph{unstrukturierte} Datenstrukturen. Anschließend erläutern wir das Konzept von \emph{Veränderbarkeit} (\emph{Mutability}) in Python und erklären, warum die Datenstruktur \texttt{tuple} trotz der Existenz von Listen sinnvoll ist.
+	
+	\section*{1. Dictionaries – Schlüssel-Wert-Zuordnungen}
+	
+	Ein \texttt{dict} (Wörterbuch) speichert eine Zuordnung zwischen eindeutigen Schlüsseln und Werten. Die Elemente eines Dictionaries sind somit nicht einfach geordnete Daten, sondern benannte bzw. identifizierte Werte.
+	
+	Ein Dictionary wird mit geschweiften Klammern erstellt, wobei die Schlüssel-Wert-Paare durch Doppelpunkte getrennt sind:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+noten = {"Anna": 1.3, "Bernd": 2.0}
+\end{minted}
+
+\begin{minted}[bgcolor=gray!10]{python}
+noten = {}
+#oder
+noten = dict()
+
+noten["Anna"] = 1.3
+noten["Bernd"] = 2.0
+\end{minted}
+	
+	Zugriff erfolgt über die Schlüssel:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+noten["Anna"]    # ergibt 1.3
+\end{minted}
+	
+	Einträge lassen sich entfernen:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+del noten["Bernd"]
+\end{minted}
+	
+	Wichtige Methoden:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+noten.keys()     # alle Schlüssel
+noten.values()   # alle Werte
+noten.items()    # Paare als Tupel
+\end{minted}
+	
+	Iteration über Schlüssel und Werte:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+for name, note in noten.items():
+  print(name, "hat", note)
+\end{minted}
+
+	
+	\section*{2. Sets – Mengen ohne Duplikate}
+	
+	Ein \texttt{set} ist eine ungeordnete Sammlung von einzigartigen (d.h. nicht mehrfach vorkommenden) Elementen. Die Datenstruktur ähnelt mathematischen Mengen.
+	
+	Erstellung mit geschweiften Klammern oder \texttt{set()}:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+zahlen = {1, 2, 3, 2}
+print(zahlen)  # {1, 2, 3}
+\end{minted}
+
+	Achtung! Mit \verb|zahlen = {}| wird ein \verb|dict| erzeugt. Wenn wir eine Menge erzeugen wollen, müssen wir die geschwungenen Klammern mit Werten füllen oder den Konstruktor \verb|zahlen = set()| verwenden.
+
+\begin{minted}[bgcolor=gray!10]{python}
+zahlen = {1, 2, 3, 2}
+#oder
+zahlen = set()
+\end{minted}
+	
+\begin{minted}[bgcolor=gray!10]{python}
+aus_liste = set([1, 1, 2])
+print(aus_liste)  # {1, 2}
+\end{minted}
+	
+	Elemente können hinzugefügt und entfernt werden:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+zahlen.add(4)
+zahlen.remove(2)
+\end{minted}
+	
+	Typische Mengenoperationen:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+a = {1, 2, 3}
+b = {3, 4, 5}
+
+a | b   # Vereinigung: {1, 2, 3, 4, 5}
+a & b   # Durchschnitt: {3}
+a - b   # Differenz: {1, 2}
+\end{minted}
+	
+	\section*{3. Veränderbarkeit: mutable vs. immutable}
+	
+	Python unterscheidet zwischen veränderbaren (\emph{mutable}) und unveränderlichen (\emph{immutable}) Objekten:
+	
+	\begin{itemize}
+		\item \textbf{Mutable:} Der Inhalt des Objekts kann nachträglich verändert werden (z.\,B.\ \texttt{list}, \texttt{dict}, \texttt{set}).
+		\item \textbf{Immutable:} Der Inhalt ist fest und kann nicht verändert werden (z.\,B.\ \texttt{int}, \texttt{str}, \texttt{tuple}).
+	\end{itemize}
+	
+	Warum ist das wichtig? Nur \emph{unveränderliche Objekte} können als Schlüssel in einem Dictionary oder als Elemente eines Sets verwendet werden. Denn nur dann kann sichergestellt werden, dass sich ihr Wert (und damit ihr Hash-Wert) nicht nachträglich ändert.
+	
+	\section*{4. Tuple – Geordnete, unveränderliche Daten}
+	
+	Ein \texttt{tuple} ist eine geordnete, aber \emph{unveränderliche} Datenstruktur. Sie ähnelt der Liste, unterscheidet sich aber in zwei zentralen Punkten:
+	
+	\begin{itemize}
+		\item Die Elemente eines Tupels können nach der Erstellung nicht verändert werden.
+		\item Tupel sind \emph{hashable} – sie können als Schlüssel in Dictionaries oder als Elemente in Sets verwendet werden.
+	\end{itemize}
+	
+	Erstellung:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+punkt = (3, 4)
+paar = "Hallo", 42       # Klammern optional
+eins = (7,)              # Einzelwert-Tuple
+\end{minted}
+	
+	Zugriff per Index:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+punkt[0]    # ergibt 3
+\end{minted}
+	
+	Veränderung ist nicht erlaubt:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+punkt[0] = 5    # führt zu einem Fehler
+\end{minted}
+
+	Verwendung als Dictionary-Schlüssel:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+messung = {}
+messung[(2024, 5)] = 19.3
+\end{minted}
+	
+	Tupel sind ideal für feste, strukturierte Datenpakete und werden häufig verwendet, um mehrere Rückgabewerte aus Funktionen zu liefern:
+	
+\begin{minted}[bgcolor=gray!10]{python}
+def teile(x, y):
+  return x // y, x % y
+
+ganz, rest = teile(17, 5)
+\end{minted}
+
+	\section*{5. Zusammenfassung}
+	
+	\begin{tabular}{l|c|c|c}
+		Datenstruktur & Geordnet & Veränderbar & Duplikate erlaubt \\
+		\hline
+		\texttt{list} & ja       & ja          & ja \\
+		\texttt{tuple} & ja      & nein        & ja \\
+		\texttt{set} & nein      & ja          & nein \\
+		\texttt{dict} & nein     & ja          & Schlüssel eindeutig \\
+	\end{tabular}
+	
+	Jede dieser Datenstrukturen hat ihre eigene Stärke. In der Praxis ist die Wahl der richtigen Struktur entscheidend für effizienten und verständlichen Code.
+	
+	
+	
+\end{document}
